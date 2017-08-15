@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('underscore'),
+	moment = require('moment'),
 	React = require('react'),
 	Reflux = require('reflux'),
 	Router = require('react-router'),
@@ -22,6 +23,7 @@ module.exports = React.createClass({
 		})
 	],
 	render: template.locals(_({
-		Link: Router.Link
+		Link: Router.Link,
+		moment: moment
 	}).extend(CommonComponents))
 });

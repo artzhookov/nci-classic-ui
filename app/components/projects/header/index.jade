@@ -1,6 +1,5 @@
 h1.page-header.clearfix
 	.pull-right
-
 		- var scmRev = this.props.project.scm ? this.props.project.scm.rev : '';
 
 		- var formTitle;
@@ -9,7 +8,7 @@ h1.page-header.clearfix
 		- }
 
 		.form-inline(title=formTitle)
-			select.form-control(
+			select.form-control.input-sm(
 				style="width: 250px;",
 				onChange=this.onScmBranchChange,
 				disabled=this.props.project.archived
@@ -19,7 +18,7 @@ h1.page-header.clearfix
 
 			if this.state.scmBranch === '-1'
 				| 
-				input.form-control(
+				input.form-control.input-sm(
 					value= this.state.scmRev,
 					onChange=this.onScmRevChange,
 					style="width: 250px;"
@@ -36,13 +35,14 @@ h1.page-header.clearfix
 					onClick=this.onBuildProject,
 					class=buildButtonClasses
 				)
-					i.fa.fa-fw.fa-play
+					i.fa.fa-play
 					| 
 					span Build
 
 	div
 		if this.props.project.archived
-			i(title="Project is archived").fa.fa-fw.fa-archive
+			i(title="Project is archived").fa.fa-archive
 		else
 			Scm(scm=this.props.project.scm ? this.props.project.scm.type : '')
+		| 
 		span= this.props.project.name

@@ -1,7 +1,7 @@
 .projects-selector(href="javascript:void(0);")
 	if !this.state.showSearch
 		span.projects-selector_preview(onClick=this.onSearchProject)
-			i.fa.fa-fw.fa-bars
+			i.fa.fa-bars
 			span.projects-selector_preview_text Select a project...
 	else
 		input.projects-selector_input(
@@ -15,16 +15,15 @@
 			each project in this.state.projects
 				li.projects-selector_item(key=project.name)
 					Link.projects-selector_item_link(to="project", params={name: project.name}, onMouseDown=this.onSelectProject(project.name))
-						- if (project.archived) {
-							i(title="Project is archived").fa.fa-fw.fa-archive
-						- } else {
+						if project.archived
+							i(title="Project is archived").fa.fa-archive
+						else
 							Scm(scm=project.scm.type)
-						- }
-						span 
+						| 
 						span= project.name
 
 					if !project.archived
 						a.projects-selector_item_run(href="javascript:void(0);", onMouseDown=this.onRunProject(project.name))
-							i.fa.fa-fw.fa-play
+							i.fa.fa-play
 
 

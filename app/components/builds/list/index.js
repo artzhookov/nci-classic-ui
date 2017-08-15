@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('underscore'),
+	moment = require('moment'),
 	React = require('react'),
 	Reflux = require('reflux'),
 	Item = require('../item'),
@@ -28,7 +29,8 @@ var Component = React.createClass({
 		});
 	},
 	render: template.locals({
-		Item: Item
+		Item: Item,
+		moment: moment
 	})
 });
 

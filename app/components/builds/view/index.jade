@@ -20,10 +20,7 @@ if this.state.build
 		.col-md-12
 			ProjectHeader(project=this.state.project)
 	.row
-		.col-sm-3.hidden-xs
-			BuildSidebar(projectName=this.state.build.project.name, currentBuild=this.state.build)
-
-		.col-sm-9
+		.col-md-9.col-md-push-3.col-sm-8.col-sm-push-4
 			h1.page-header
 				.pull-right(style={fontSize: '22px'})
 					mixin statusBadge(this.state.build)
@@ -73,14 +70,13 @@ if this.state.build
 						p 
 							Scm(scm=this.state.build.project.scm.type)
 							| 
-							| Project 
 							Link(to="project", params={name: this.state.build.project.name})
 								span= this.state.build.project.name
 				.row
 					.col-md-12
 						p
-							i.fa.fa-fw.fa-clock-o
-							span 
+							i.fa.fa-calendar
+							| 
 							if this.state.build.startDate
 								span Started 
 								DateTime(value=this.state.build.startDate)
@@ -95,7 +91,10 @@ if this.state.build
 								| , finished
 								| 
 								DateTime(value=this.state.build.endDate)
-								| , took
+								| 
+								i.fa.fa-clock-o
+								| 
+								| took
 								| 
 								Duration(value=(this.state.build.endDate - this.state.build.startDate), title=durationTitle)
 
@@ -106,7 +105,8 @@ if this.state.build
 				.row
 					.col-md-12
 						p
-							i.fa.fa-fw.fa-code-fork
+							i.fa.fa-code-fork
+							| 
 							| Scm target is
 							| 
 							span= targetScmRev
@@ -161,7 +161,7 @@ if this.state.build
 			.build-view_terminal
 				if this.state.showConsole
 					h2
-						i.fa.fa-fw.fa-terminal
+						i.fa.fa-terminal
 						| 
 						| Console output
 					Terminal(build=this.state.build.id, showPreloader=true)
@@ -185,12 +185,15 @@ if this.state.build
 
 					.text-center
 						button.btn.btn-primary(onClick=this.toggleConsole)
-							i.fa.fa-fw.fa-terminal
+							i.fa.fa-terminal
 							| 
 							| Hide console output
 				else
 					.text-center
 						button.btn.btn-primary(onClick=this.toggleConsole)
-							i.fa.fa-fw.fa-terminal
+							i.fa.fa-terminal
 							| 
 							| Show console output
+
+		.col-md-3.col-md-pull-9.col-sm-4.col-sm-pull-8
+			BuildSidebar(projectName=this.state.build.project.name, currentBuild=this.state.build)

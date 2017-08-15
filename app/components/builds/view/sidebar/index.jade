@@ -1,31 +1,67 @@
-.builds.builds__size-small
-	each item in this.state.items
-		- var buildItemClasses = ['builds_item__' + item.status];
-		- var isCurrent = item.id === this.props.currentBuild.id;
+.builds.builds__size-small.builds__order-simple
+	- var prevDate = null;
+
+	each build in this.state.items
+		- var currentDate = build.startDate || build.createDate;
+		- var formattedDate = moment(prevDate).calendar(null, {
+		- 	sameDay: '[Today]',
+		- 	lastDay: '[Yesterday]',
+		- 	lastWeek: 'DD/MM/YYYY',
+		- 	sameElse: 'DD/MM/YYYY'
+		- });
+
+		if prevDate && moment(currentDate).isBefore(prevDate, 'day')
+			span(key=formattedDate)= formattedDate
+
+		- prevDate = currentDate;
+
+		- var buildItemClasses = ['builds_item__' + build.status];
+
+		- var isCurrent = build.id === this.props.currentBuild.id;
 		if isCurrent
 			- buildItemClasses.push('builds_item__current');
-		.builds_item(key=item.id, class=buildItemClasses)
+
+		.builds_item(key=build.id, class=buildItemClasses)
 			.builds_inner
 				.row
 					.builds_header
 						if isCurrent
 							span build #
-							span= item.number
+							span= build.number
 						else
-							Link(to="build", params={id: item.id})
+							Link(to="build", params={id: build.id})
 								span build #
-								span= item.number
+								span= build.number
 
 					.builds_controls
-						if item.status === 'in-progress'
+						if build.status === 'in-progress'
 							.builds_progress
-								if item.project.avgBuildDuration
-									Progress(build=item)
+								if build.project.avgBuildDuration
+									Progress(build=build)
 
-						if item.endDate
-							div
-								DateTime(value=item.endDate)
-							div
-								| took
+				.builds_content
+					if build.endDate
+						span.builds_info
+							i.fa.fa-calendar
+							| 
+							| finished 
+							DateTime(value=build.endDate)
+
+						span.builds_info
+							i.fa.fa-clock-o
+							| 
+							| took 
+							Duration(value=(build.endDate - build.startDate))
+					else
+						if build.startDate
+							span.builds_info
+								i.fa.fa-calendar
 								| 
-								Duration(value=(item.endDate - item.startDate))
+								| started 
+								DateTime(value=build.startDate)
+						else
+							span.builds_info
+								i.fa.fa-calendar
+								| 
+								| queued 
+								DateTime(value=build.createDate)

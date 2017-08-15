@@ -8,6 +8,55 @@
 
 @animation-duration: 1.5s;
 
+.builds-simple-order() {
+	& .builds {
+		&_item {
+			// arrow
+			&:before {
+				border-left-color: transparent;
+			}
+
+			// status
+			&:after {
+				left: 0;
+			}
+		}
+
+		&_inner {
+			border-left-width: 6px;
+			border-left-style: solid;
+		}
+	}
+
+	&.builds {
+		&__size-large {
+			.builds {
+				&_item {
+					padding-left: 40px;
+
+					// arrow
+					&:before {
+						left: 20px;
+					}
+				}
+			}
+		}
+
+		&__size-small {
+			.builds {
+				&_item {
+					padding-left: 30px;
+
+					// arrow
+					&:before {
+						left: 10px;
+					}
+				}
+			}
+		}
+	}
+}
+
 .builds {
 	position: relative;
 
@@ -23,14 +72,7 @@
 			}
 		}
 
-		&:after {
-			content: '';
-			position: absolute;
-			border-radius: 50%;
-			background: @well-bg;
-			z-index: 1;
-		}
-
+		// arrow
 		&:before {
 			content: '';
 			position: absolute;
@@ -39,13 +81,24 @@
 			top: 25px;
 		}
 
-		&__in-progress {
-			&:after {
-				background: @brand-info;
-			}
+		// status
+		&:after {
+			content: '';
+			position: absolute;
+			border-radius: 50%;
+			background: @well-bg;
+			z-index: 1;
+		}
 
+		&__in-progress {
+			// arrow
 			&:before {
 				border-color: transparent @brand-info;
+			}
+
+			// status
+			&:after {
+				background: @brand-info;
 			}
 
 			.builds {
@@ -56,12 +109,14 @@
 		}
 
 		&__done {
-			&:after {
-				background: @link-color;
-			}
-
+			// arrow
 			&:before {
 				border-color: transparent @link-color;
+			}
+
+			// status
+			&:after {
+				background: @link-color;
 			}
 
 			.builds {
@@ -72,12 +127,14 @@
 		}
 
 		&__error {
-			&:after {
-				background: @brand-danger;
-			}
-
+			// arrow
 			&:before {
 				border-color: transparent @brand-danger;
+			}
+
+			// status
+			&:after {
+				background: @brand-danger;
 			}
 
 			.builds {
@@ -88,12 +145,14 @@
 		}
 
 		&__queued {
-			&:after {
-				background: @brand-primary;
-			}
-
+			// arrow
 			&:before {
 				border-color: transparent @brand-primary;
+			}
+
+			// status
+			&:after {
+				background: @brand-primary;
 			}
 
 			.builds {
@@ -104,12 +163,14 @@
 		}
 
 		&__canceled {
-			&:after {
-				background: @brand-warning;
-			}
-
+			// arrow
 			&:before {
 				border-color: transparent @brand-warning;
+			}
+
+			// status
+			&:after {
+				background: @brand-warning;
 			}
 
 			.builds {
@@ -131,7 +192,7 @@
 
 	&_inner {
 		background: @well-bg;
-		padding: 15px;
+		padding: 10px;
 	}
 
 	&_header {
@@ -169,6 +230,7 @@
 		margin-right: 10px;
 	}
 
+	// line
 	&:after {
 		content: '';
 		position: absolute;
@@ -183,52 +245,58 @@
 		.builds {
 			&_item {
 				&__in-progress {
+					// status
 					&:after {
 						background: white url("/images/build/progress.gif") center center no-repeat;
 					}
 				}
 
+				// arrow
+				&:before {
+					top: 25px;
+				}
+
+				// status
 				&:after {
 					width: 24px;
 					height: 24px;
 					top: 25px;
 				}
-
-				&:before {
-					top: 25px;
-				}
 			}
 		}
 
+		// line
 		&:after {
 			left: 12px;
 		}
 	}
 
-	&_size-small {
+	&__size-small {
 		.builds {
 			&_item {
 				&__in-progress {
+					// status
 					&:after {
 						background: white url("/images/build/progress-small.gif") center center no-repeat;
 					}
 				}
 
+				// arrow
+				&:before {
+					top: 13px;
+				}
+
+				// status
 				&:after {
 					top: 16px;
 					height: 16px;
 					width: 16px;
-				}
-
-				&:before {
-					top: 13px;
 				}
 			}
 
 			&_header {
 				font-size: 14px;
 				.make-xs-column(6);
-				margin-bottom: 0;
 			}
 
 			&_controls {
@@ -241,58 +309,65 @@
 			}
 		}
 
+		// line
 		&:after {
 			left: 8px;
 		}
+	}
+
+	&__order-simple {
+		.builds-simple-order()
+	}
+
+	&_split {
+		display: inline-block;
+		width: 50%;
+		position: relative;
+	}
+
+	&_split-date {
+		text-align: center;
+		padding: 4px 0;
+		width: 200%;
+		position: absolute;
+		left: -100%;
 	}
 }
 
 @media (max-width: @screen-xs-max) {
 	.builds {
-		&_inner {
-			border-left-width: 6px;
-			border-left-style: solid;
-		}
-
-		&__size-large {
-			.builds {
-				&_item {
-					padding-left: 40px;
-
-					&:before {
-						left: 20px;
-						border-left-color: transparent;
-					}
-
-					&:after {
-						left: 0;
-					}
-				}
-			}
-		}
-
-		&__size-small {
-			.builds {
-				&_item {
-					padding-left: 30px;
-
-					&:before {
-						left: 10px;
-						border-left-color: transparent;
-					}
-
-					&:after {
-						left: 0;
-					}
-				}
-			}
+		&__order-left,
+		&__order-right {
+			.builds-simple-order();
 		}
 	}
 }
 
 @media (min-width: @screen-sm-min) {
 	.builds {
-		&__aligned {
+		&__order-simple {
+			.builds {
+				&_item {
+					// arrow
+					&:before {
+						border-left-color: transparent;
+					}
+
+					// status
+					&:after {
+						left: 0;
+					}
+				}
+
+				&_inner {
+					border-left-width: 6px;
+					border-left-style: solid;
+				}
+			}
+		}
+
+		&__order-left,
+		&__order-right {
 			.builds {
 				&_item {
 					display: inline-block;
@@ -302,12 +377,13 @@
 				}
 			}
 
+			// line
 			&:after {
 				left: 50%;
 			}
 		}
 
-		&__aligned-left {
+		&__order-left {
 			.builds {
 				&_item {
 					&:nth-child(odd) {
@@ -320,13 +396,15 @@
 							}
 						}
 
-						&:after {
-							right: -12px;
-						}
-
+						// arrow
 						&:before {
 							right: 10px;
 							border-right-color: transparent;
+						}
+
+						// status
+						&:after {
+							right: -12px;
 						}
 					}
 
@@ -341,20 +419,22 @@
 							}
 						}
 
-						&:after {
-							left: -12px;
-						}
-
+						// arrow
 						&:before {
 							left: 10px;
 							border-left-color: transparent;
+						}
+
+						// status
+						&:after {
+							left: -12px;
 						}
 					}
 				}
 			}
 		}
 
-		&__aligned-right {
+		&__order-right {
 			.builds {
 				&_item {
 					&:first-child {
@@ -372,13 +452,15 @@
 							}
 						}
 
-						&:after {
-							right: -12px;
-						}
-
+						// arrow
 						&:before {
 							right: 10px;
 							border-right-color: transparent;
+						}
+
+						// status
+						&:after {
+							right: -12px;
 						}
 					}
 
@@ -392,13 +474,15 @@
 							}
 						}
 
-						&:after {
-							left: -12px;
-						}
-
+						// arrow
 						&:before {
 							left: 10px;
 							border-left-color: transparent;
+						}
+
+						// status
+						&:after {
+							left: -12px;
 						}
 					}
 				}

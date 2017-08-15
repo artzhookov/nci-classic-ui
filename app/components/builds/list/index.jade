@@ -1,8 +1,29 @@
 - var itemsCount = this.state.items.length;
 
 if itemsCount
-	.builds.builds__size-large.builds__aligned(class="builds__aligned-#{itemsCount % 2 ? 'left' : 'right'}")
-		each build, index in this.state.items
+	.builds.builds__size-large(class="builds__order-#{itemsCount % 2 ? 'left' : 'right'}")
+		- var prevDate;
+		each build in this.state.items
+			- var currentDate = build.startDate || build.createDate;
+			- var formattedDate = moment(prevDate).calendar(null, {
+			- 	sameDay: '[Today]',
+			- 	lastDay: '[Yesterday]',
+			- 	lastWeek: 'DD/MM/YYYY',
+			- 	sameElse: 'DD/MM/YYYY'
+			- });
+
+			if prevDate && moment(currentDate).isBefore(prevDate, 'day')
+				if itemsCount % 2
+					.builds_split(key=formattedDate + '_1')
+						.builds_split-date= formattedDate
+					.builds_split(key=formattedDate + '_2')
+				else
+					.builds_split(key=formattedDate + '_1')
+					.builds_split(key=formattedDate + '_2')
+						.builds_split-date= formattedDate
+
+			- prevDate = currentDate;
+
 			Item(build=build, key=build.id)
 else
 	p Build history is empty

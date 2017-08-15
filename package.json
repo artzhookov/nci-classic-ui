@@ -51,10 +51,11 @@
   },
   "devDependencies": {
     "ansi_up": "1.3.0",
-    "bootstrap": "3.3.4",
+    "bootstrap": "3.3.7",
+    "bootswatch": "3.3.7",
     "browserify": "13.0.0",
     "chokidar-cli": "1.2.0",
-    "font-awesome": "4.3.0",
+    "font-awesome": "4.7.0",
     "jade": "1.11.0",
     "jshint": "2.4.4",
     "less": "2.5.3",
